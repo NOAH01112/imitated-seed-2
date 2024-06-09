@@ -1185,7 +1185,13 @@ module.exports = async function markdown(req, content, discussion = 0, title = '
 						</div>
 					` + data;
 				}
-			} else if(getperm('admin', doc.title)) {
+			} else if(getperm('developer', doc.title)) {
+						data = `
+							<div style="border-width: 5px 1px 1px; border-style: solid; border-color: orange gray gray; padding: 10px; margin-bottom: 10px;" onmouseover="this.style.borderTopColor='red';" onmouseout="this.style.borderTopColor='orange';">
+								<span>이 사용자는 ${config.getString('wiki.site_name', '더 시드')}의 개발진입니다.</span>
+							</div>
+						` + data;			
+			} if(getperm('admin', doc.title)) {
 				data = `
 					<div style="border-width: 5px 1px 1px; border-style: solid; border-color: orange gray gray; padding: 10px; margin-bottom: 10px;" onmouseover="this.style.borderTopColor=\'red\';" onmouseout="this.style.borderTopColor=\'orange\';">
 						<span${ver('4.13.0') ? '' : ' style="font-size: 14pt;"'}>이 사용자는 특수 권한을 가지고 있습니다.</span>
