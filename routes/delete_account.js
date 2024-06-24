@@ -1,6 +1,6 @@
 router.get('/member/withdraw', async (req, res) => {
     var content = `
-        계정 삭제가 비활성화돼 있습니다.
+        이 기능이 활성화되있지 않습니다.
     `;
 
     res.send(await render(req, '오류', content, {}, _, null, 'withdraw'));
