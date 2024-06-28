@@ -167,8 +167,8 @@ router.get(/^\/discuss\/(.*)/, async function threadList(req, res) {
 			<h3 class="wiki-heading">새 주제 생성</h3>
 			
 			${doc + '' == (config.getString('wiki.front_page', 'FrontPage')) ? `
-				<div class="alert alert-success alert-dismissible fade in" role="alert">
-					<strong>[경고!]</strong> 이 토론은 ${doc + ''} 문서의 토론입니다. ${doc + ''} 문서와 관련 없는 토론은 각 문서의 토론에서 진행해 주시기 바랍니다. ${doc + ''} 문서와 관련 없는 토론은 삭제될 수 있습니다.
+				<div class="alert alert-info alert-dismissible fade in" role="alert">
+				<strong>[경고!]</strong> 이 토론은 ${doc + ''} 문서의 토론입니다. ${doc + ''} 문서와 관련 없는 토론은 각 문서의 토론에서 진행해 주시기 바랍니다. ${doc + ''} 문서와 관련 없는 토론은 삭제될 수 있습니다.
 				</div>
 			` : ''}
 			
@@ -326,13 +326,14 @@ router.get(ver('4.16.0') ? /^\/thread\/([a-zA-Z0-9]+)$/ : /^\/thread\/([a-zA-Z0-
 			`;
 		if(status == 'normal')
 			sts = `
-				<option value=close>close</option>
+				<option value=normal>normal</option>
 				<option value=pause>pause</option>
+				<option value=close>close</option>
 			`;
 		if(status == 'pause')
 			sts = `
-				<option value=close>close</option>
 				<option value=normal>normal</option>
+				<option value=close>close</option>
 			`;
 		
 		content += `
@@ -551,7 +552,7 @@ router.get(/^\/thread\/([a-zA-Z0-9]{18,24})\/(\d+)$/, async function sendThreadD
 				: (
 					rs.type == 'document'
 					? '스레드를 <strong>' + rs.content + '</strong> 문서로 이동'
-					: '스레드 주제를 <strong>' + rs.content + '</strong>로 변경'
+					: '스레드 주제를 <strong>(기존 주제)</strong>에서 <strong>' + rs.content + '</strong>로 변경'
 				)
 			) : await markdown(req, rs.content, 1);
 		
